@@ -16,23 +16,41 @@
             justify-content: center;}
         .margin-top{ 
             margin-top: 100px; }
+            .feld1{
+                background-color:transparent;
+                padding: 10px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                font-size: 50px;
+                font-family: Times;
+                align-content: center;
+                color: white;
+                width: 350px;
+            }
         .timer{ font-size: 60px;
         color: white;
     font-family: "Roboto", sans-serif;}
-        }
+        
     </style>
 
 
     <script> 
-        let klingel = new Audio('alarm.mp3');
+    
+     
+    
+    let klingel = new Audio('alarm.mp3');
         let timerStarted = false;
+        let Vorgabe=0;
 
+        function startTimer() 
+        {
 
-        function startTimer() {
             if (!timerStarted){
             let ten = 9;
             let startTime = new Date().getTime();
-            let fiveMinutes = 60000 * 5 ;
+            //timer.innerHTML=startTime;
+            Vorgabe=document.getElementById("Zahl1").value
+            let fiveMinutes = (60000) * Vorgabe;
             let endTime = startTime + fiveMinutes;
 
         setInterval(function() {
@@ -40,20 +58,21 @@
             if(timeLeft > 0){
             let minutes = timeLeft / (1000 * 60);
             minutes = Math.floor(minutes);
-            let seconds = (timeLeft / 1000) % 60;
+            let seconds = ((timeLeft / 1000) % 60)-0.5;
             seconds = Math.round(seconds);
 
             if (seconds > ten) { text = '0' + minutes + ' : ' + seconds;
             }
             else {  text = '0' + minutes + ' : 0' + seconds;}
-            
             timer.innerHTML = text;
             }
             else{
                 klingel.play();
                 timer.innerHTML = '00 : 00'}
         },);}timerStarted = true
-    }
+        
+        }
+    
     </script>
 </head>
 <body class="background">
@@ -65,9 +84,10 @@
 </div >
 
 <div class="center margin-top timer" id="timer">
-    05 : 00
-</div>
+     <input type="text" placeholder="Minuten hier" id="Zahl1" class="feld1" /> 
+    </div>
 
+</div>
 <div class="center margin-top">
     
     <img onclick = "startTimer()" src="img/btn.png">
